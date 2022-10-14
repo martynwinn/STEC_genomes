@@ -68,6 +68,7 @@ print(df_norm)
 cor_matrix = df_norm.loc[:,'astA':'air'].corr()
 pd.set_option('display.max_columns', 100)
 print(cor_matrix)
+cor_matrix.to_csv("v_families_correlation.csv")
 pd.reset_option('display.max_columns')
 
 # drop columns where no reads map for any sample
@@ -79,19 +80,21 @@ print(df_norm)
 
 # plot some columns
 fam1 = 'eae'
-fam2 = 'tir'
+fam2 = 'aggR'
+fam3 = 'iha'
 fig, (ax1) = plt.subplots(1,1)
 g = np.arange(0,229)
-ax1.plot(g,df_norm[fam1].to_numpy(),label=fam1)
-ax1.plot(g,df_norm[fam2].to_numpy(),label=fam2)
+ax1.plot(g,df_norm[fam1].to_numpy(),label=fam1,linewidth=0.5)
+ax1.plot(g,df_norm[fam2].to_numpy(),label=fam2,linewidth=0.5)
+ax1.plot(g,df_norm[fam3].to_numpy(),label=fam3,linewidth=0.5)
 ax1.set_xlabel('Samples')
 ax1.set_ylabel('Mapped reads')
 ax1.legend()
 
 ax1.text(30,1800,'Deer',color='red')
 ax1.text(95,1900,'Mince',color='red')
-ax1.text(110,2150,'Cheese',color='red')
-ax1.text(150,2350,'Clinical',color='red')
+ax1.text(110,2100,'Cheese',color='red')
+ax1.text(150,2150,'Clinical',color='red')
 collection = collections.BrokenBarHCollection(
     [(90,31),(125,104)], (0,3000), facecolor='green', alpha=0.1)
 ax1.add_collection(collection)
